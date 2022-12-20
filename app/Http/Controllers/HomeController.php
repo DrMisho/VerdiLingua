@@ -186,7 +186,7 @@ class HomeController extends Controller
             if($phase->is_final)
             {
                 $next_grade = Grade::query()->where('order', $phase->grade->order + 1)->first();
-                $next_phase = $next_grade->phases->orderBy('order')->first();
+                $next_phase = $next_grade->phases()->orderBy('order')->first();
                 $user->update([
                     'grade_id' => $next_grade->id,
                     'phase_id' => $next_phase->id,

@@ -38,9 +38,14 @@
                             <h2 class="mb-4 text-bg-success p-2 rounded">{{ $exercise->question->translate(Auth::user()->user_lang)->question }}</h2>
                             <h4 class="check_correct_{{ $exercise->id }} text-bold">{{ $exercise->word }}:</h4>
                             <ul>
-                                @foreach ($exercise->options as $option)
-                                    <li style="list-style: none" class="p-2"><button onclick="checkCorrect({{ $option }}, {{ $exercise->id }}, '{{ $exercise->options->where('is_correct', true)->first()->translate(Auth::user()->dest_lang)->option }}')" href="" class="btn border text-bold" name="answer_button">{{ $option->translate(Auth::user()->dest_lang)->option }}</button></li>
-                                @endforeach
+                                @if($exercise->type === 'select')
+                                    @foreach ($exercise->options as $option)
+                                        <li style="list-style: none" class="p-2"><button onclick="checkCorrect({{ $option }}, {{ $exercise->id }}, '{{ $exercise->options->where('is_correct', true)->first()->translate(Auth::user()->dest_lang)->option }}')" href="" class="btn border text-bold" name="answer_button">{{ $option->translate(Auth::user()->dest_lang)->option }}</button></li>
+                                    @endforeach
+                                @else
+                                    <input type="text" name="translated_text" id="translated_text">
+                                    <button onclick="checkCorrectTranslation('{{ $exercise->options->where('is_correct', true)->first()->translate(Auth::user()->dest_lang)->option }}', {{ $exercise->id }})" href="" class="btn border text-bold" name="check_button">Check</button>
+                                @endif
                             </ul>
                         </div>
 

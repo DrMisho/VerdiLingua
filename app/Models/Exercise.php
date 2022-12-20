@@ -15,7 +15,7 @@ class Exercise extends Model implements TranslatableContract
     use Translatable;
     use SoftDeletes;
 
-    protected $fillable = ['question_id'];
+    protected $fillable = ['question_id', 'type'];
     public $translationModel = ExerciseTranslation::class;
     public $translatedAttributes = ['word'];
 
